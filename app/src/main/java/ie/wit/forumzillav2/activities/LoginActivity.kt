@@ -8,6 +8,7 @@ import android.widget.Toast
 import ie.wit.forumzillav2.R
 import ie.wit.forumzillav2.main.ForumApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.startActivity
@@ -22,6 +23,7 @@ class LoginActivity: AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_login)
         app = application as ForumApp
         app.auth = FirebaseAuth.getInstance()
+        app.database = FirebaseDatabase.getInstance().reference
 
 
 

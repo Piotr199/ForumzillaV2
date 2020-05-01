@@ -13,6 +13,7 @@ data class Post(var postID:String = "",
                 var author:String="",
                 var likes: Int = 0,
                 var date: String ="",
+                var isFavourite: Boolean= false,
                 var postCategory: String ="" //sport,comedy,news
 ) : Parcelable
 
@@ -25,6 +26,7 @@ data class Post(var postID:String = "",
             "postContent" to postContent,
             "author" to author,
             "likes" to likes,
+            "isFavourite" to isFavourite,
             "date" to date,
             "postCategory" to postCategory
         )

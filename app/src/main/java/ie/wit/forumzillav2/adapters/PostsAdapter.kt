@@ -44,6 +44,8 @@ class PostsAdapter constructor(var posts: ArrayList<Post>,
             itemView.txtContent.text = post.postContent
             itemView.txtLikes.text = post.likes.toString()
 
+            if(post.isFavourite) itemView.imagefavourite.setImageResource(R.drawable.ic_stars_black_24dp)
+
             itemView.setOnClickListener {
                 listener.onPostClick(post)
             }
