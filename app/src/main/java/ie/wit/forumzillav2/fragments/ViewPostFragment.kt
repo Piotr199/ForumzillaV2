@@ -41,8 +41,8 @@ class ViewPostFragment: Fragment(), AnkoLogger {
         activity?.title = getString(R.string.viewpage)
 
         root.viewTitle.setText(viewpost!!.postTitle) //fills in details
-        root.viewContent.setText(viewpost!!.postCategory)
-        root.viewCategory.setText(viewpost!!.postContent)
+        root.viewContent.setText(viewpost!!.postContent)
+        root.viewCategory.setText(viewpost!!.postCategory)
         root.txtLikes.setText(viewpost!!.likes.toString())
 
         if(viewpost!!.isFavourite){ //checks if post is favourited
