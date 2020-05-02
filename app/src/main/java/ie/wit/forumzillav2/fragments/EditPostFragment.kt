@@ -41,13 +41,13 @@ class EditPostsFragment : Fragment(), AnkoLogger {
         root = inflater.inflate(R.layout.fragment_edit_post, container, false)
         activity?.title = getString(R.string.editpage)
 
-        root.editTitle.setText(editPost!!.postTitle)
-        root.editCategory.setText(editPost!!.postCategory)
-        root.editContent.setText(editPost!!.postContent)
+        root.editTitle.setText(editPost!!.postTitle) //fill text boxes
+        root.editCategory.setText(editPost!!.postCategory) //fill text boxes
+        root.editContent.setText(editPost!!.postContent) //fill text boxes
 
 
         root.btnEditPost.setOnClickListener {
-            if(!(root.editTitle.text.toString() == "" ||
+            if(!(root.editTitle.text.toString() == "" || // check if form is empty
                         root.editContent.text.toString() == "" ||
                         root.editCategory.text.toString() == "")) {
                 updatePostData()
@@ -58,9 +58,9 @@ class EditPostsFragment : Fragment(), AnkoLogger {
                 )
             } else {
                 val toast =
-                    Toast.makeText(
+                    Toast.makeText( // error
                         activity!!.applicationContext,
-                        "You Dont Own This Post!",
+                        "Form Must Be Filled In!",
                         Toast.LENGTH_LONG
                     )
                 toast.show()
@@ -71,13 +71,13 @@ class EditPostsFragment : Fragment(), AnkoLogger {
         return root
     }
 
-    fun updatePostData() {
+    fun updatePostData() { //gets details from form, adds to post obj
         editPost!!.postTitle = root.editTitle.text.toString()
         editPost!!.postContent = root.editContent.text.toString()
         editPost!!.postCategory = root.editCategory.text.toString()
     }
 
-    fun updatePost(uid: String?, post: Post) {
+    fun updatePost(uid: String?, post: Post) { //updates post in firebase/post
         app.database.child("posts").child(uid!!)
             .addListenerForSingleValueEvent(
                 object : ValueEventListener {
@@ -91,7 +91,7 @@ class EditPostsFragment : Fragment(), AnkoLogger {
                 })
     }
 
-    fun updateUserPost(userId: String, uid: String?, post: Post) {
+    fun updateUserPost(userId: String, uid: String?, post: Post) { //updates post in firebase/user-post
         app.database.child("user-posts").child(userId).child(uid!!)
             .addListenerForSingleValueEvent(
                 object : ValueEventListener {
@@ -104,7 +104,7 @@ class EditPostsFragment : Fragment(), AnkoLogger {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        info("Firebase Donation error : ${error.message}")
+                        info("Firebase Post error : ${error.message}")
                     }
                 })
     }

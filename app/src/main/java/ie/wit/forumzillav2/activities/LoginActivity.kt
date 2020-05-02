@@ -22,7 +22,7 @@ class LoginActivity: AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         app = application as ForumApp
-        app.auth = FirebaseAuth.getInstance()
+        app.auth = FirebaseAuth.getInstance() //initialize firbaes
         app.database = FirebaseDatabase.getInstance().reference
 
 

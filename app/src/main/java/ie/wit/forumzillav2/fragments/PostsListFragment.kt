@@ -49,8 +49,8 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
 
         val swipeDeleteHandler = object : SwipeToDeleteCallback(activity!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                var postTemp = viewHolder.itemView.tag as Post
-                if (postTemp.author == app.auth.currentUser!!.email) {
+                var postTemp = viewHolder.itemView.tag as Post  //turn card into POST
+                if (postTemp.author == app.auth.currentUser!!.email) { //if the author is same as logged in
                     val adapter = root.recyclerView.adapter as PostsAdapter
                     adapter.removeAt(viewHolder.adapterPosition)
                     deletePost((viewHolder.itemView.tag as Post).postID)
@@ -58,7 +58,7 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
                         app.auth.currentUser!!.uid,
                         (viewHolder.itemView.tag as Post).postID
                     )
-                } else {
+                } else { //otherwise error
                     val toast =
                         Toast.makeText(
                             activity!!.applicationContext,
@@ -66,7 +66,7 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
                             Toast.LENGTH_LONG
                         )
                     toast.show()
-                    getAllPosts()
+                    getAllPosts() //refresh
                 }
 
             }
@@ -77,10 +77,10 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
         val swipeEditHandler = object : SwipeToEditCallback(activity!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-                var postTemp = viewHolder.itemView.tag as Post
-                if (postTemp.author == app.auth.currentUser!!.email){
+                var postTemp = viewHolder.itemView.tag as Post //turn card into POST
+                if (postTemp.author == app.auth.currentUser!!.email){ //if the author is same as logged in
                     edit(viewHolder.itemView.tag as Post)
-                } else {
+                } else { //error
                     val toast =
                         Toast.makeText(
                             activity!!.applicationContext,
@@ -88,7 +88,7 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
                             Toast.LENGTH_LONG
                         )
                     toast.show()
-                    getAllPosts()
+                    getAllPosts() //refresh
                 }
             }
         }
@@ -97,7 +97,7 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
 
 
         root.imageButton.setOnClickListener{
-            navigateTo(CreatePostFragment.newInstance())
+            navigateTo(CreatePostFragment.newInstance()) //create new post fragment
         }
         return root
     }
@@ -118,15 +118,15 @@ class PostsListFragment : Fragment()  , AnkoLogger, PostsListener {
 
     private fun edit(post: Post) {
         activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.homeFrame, EditPostsFragment.newInstance(post))
-            .addToBackStack(null)
+            .replace(R.id.homeFrame, EditPostsFragment.newInstance(post)) //replaces current fragment with edit fragment
+            .addToBackStack(null)                           //^^^ passes in a post object
             .commit()
     }
 
     private fun view(post: Post) {
         activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.homeFrame, ViewPostFragment.newInstance(post))
-            .addToBackStack(null)
+            .replace(R.id.homeFrame, ViewPostFragment.newInstance(post))//replaces current fragment with View fragment
+            .addToBackStack(null)                           //^^^ passes in a post object
             .commit()
     }
 

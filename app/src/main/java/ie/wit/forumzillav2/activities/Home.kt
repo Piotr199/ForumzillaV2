@@ -43,7 +43,7 @@ class Home : AppCompatActivity(),
 
         ft = supportFragmentManager.beginTransaction()
 
-        val fragment = HomeFragment.newInstance()
+        val fragment = HomeFragment.newInstance() //after signin <- goes to HomeFragment
         ft.replace(R.id.homeFrame, fragment)
         ft.commit()
     }
@@ -78,7 +78,7 @@ class Home : AppCompatActivity(),
 
     private fun signOut() {
         app.auth.signOut()
-        startActivity<LoginActivity>()
+        startActivity<LoginActivity>() //start login after signout
         finish()
     }
 

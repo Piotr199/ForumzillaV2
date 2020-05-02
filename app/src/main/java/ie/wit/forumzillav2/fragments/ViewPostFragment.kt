@@ -27,8 +27,8 @@ class ViewPostFragment: Fragment(), AnkoLogger {
         super.onCreate(savedInstanceState)
         app = activity?.application as ForumApp
 
-        arguments?.let {
-            viewpost = it.getParcelable("viewpost")
+        arguments?.let { //gets passed in Post
+            viewpost = it.getParcelable("viewpost") //puts post to obj
         }
     }
 
@@ -40,27 +40,27 @@ class ViewPostFragment: Fragment(), AnkoLogger {
         root = inflater.inflate(R.layout.fragment_view_post, container, false)
         activity?.title = getString(R.string.viewpage)
 
-        root.viewTitle.setText(viewpost!!.postTitle)
+        root.viewTitle.setText(viewpost!!.postTitle) //fills in details
         root.viewContent.setText(viewpost!!.postCategory)
         root.viewCategory.setText(viewpost!!.postContent)
         root.txtLikes.setText(viewpost!!.likes.toString())
 
-        if(viewpost!!.isFavourite){
+        if(viewpost!!.isFavourite){ //checks if post is favourited
             root.favStatus.setText("Added To Favourites!")
         } else {
             root.favStatus.setText(" ")
         }
 
-        root.imageView2.setOnClickListener {
-            viewpost!!.likes = viewpost!!.likes + 1
-            updatePost(viewpost!!.postID,viewpost!!)
-            updateUserPost(app.auth.currentUser!!.uid,viewpost!!.postID,viewpost!!)
+        root.imageView2.setOnClickListener { //like button
+            viewpost!!.likes = viewpost!!.likes + 1 //when clicked, add 1 like
+            updatePost(viewpost!!.postID,viewpost!!) //updates post immidiately
+            updateUserPost(app.auth.currentUser!!.uid,viewpost!!.postID,viewpost!!)//updates user-post immidiately
         }
 
-        root.btnAddToFavs.setOnClickListener {
-            viewpost!!.isFavourite = true
-            updatePost(viewpost!!.postID,viewpost!!)
-            updateUserPost(app.auth.currentUser!!.uid,viewpost!!.postID,viewpost!!)
+        root.btnAddToFavs.setOnClickListener { //favs button
+            viewpost!!.isFavourite = true //sets post.isFav to true
+            updatePost(viewpost!!.postID,viewpost!!) //updates post immidiately
+            updateUserPost(app.auth.currentUser!!.uid,viewpost!!.postID,viewpost!!)//updates user-post immidiately
             root.favStatus.setText("Added To Favourites!")
         }
 
@@ -97,7 +97,7 @@ class ViewPostFragment: Fragment(), AnkoLogger {
 
     companion object {
         @JvmStatic
-        fun newInstance(post: Post) =
+        fun newInstance(post: Post) = //passes in a post object
             ViewPostFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("viewpost",post)
